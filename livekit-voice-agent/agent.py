@@ -10,7 +10,10 @@ from pinecone_plugins.assistant.models.chat import Message
 from livekit.agents import function_tool
 
 from livekit.agents import BackgroundAudioPlayer, AudioConfig, BuiltinAudioClip
-from prompts import RGUKT_CAREER_AGENT_PROMPT
+from prompts import Jaggaer
+
+from livekit.plugins import bey
+from livekit.agents import RoomInputOptions
 
 #Update the instrucitons line
 instructions=Jaggaer
@@ -59,7 +62,6 @@ async def my_agent(ctx: agents.JobContext):
             ),
         ),
         room_input_options=RoomInputOptions(
-    noise_cancellation=noise_cancellation.BVC(),
     video_enabled=True,
     )
     )
