@@ -84,6 +84,7 @@ assistant = pc.assistant.Assistant(
     assistant_name=os.environ["ASSISTANT_NAME"]
 )
 
+
 @function_tool
 async def ask_knowledge_base(question: str) -> str:
     """Query the Pinecone Assistant knowledge base."""
