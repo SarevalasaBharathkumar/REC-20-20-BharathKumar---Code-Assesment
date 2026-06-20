@@ -10,6 +10,10 @@ from pinecone_plugins.assistant.models.chat import Message
 from livekit.agents import function_tool
 
 from livekit.agents import BackgroundAudioPlayer, AudioConfig, BuiltinAudioClip
+from prompts import RGUKT_CAREER_AGENT_PROMPT
+
+#Update the instrucitons line
+instructions=Jaggaer
 
 load_dotenv(".env.local")
 
@@ -41,6 +45,11 @@ async def my_agent(ctx: agents.JobContext):
         ),
     )
 
+    avatar = bey.AvatarSession(
+    avatar_id="70b1b917-ed16-4531-bb6c-b0bdb79449b4"
+)
+
+
     await session.start(
         room=ctx.room,
         agent=Assistant(),
@@ -49,6 +58,10 @@ async def my_agent(ctx: agents.JobContext):
                 noise_cancellation=ai_coustics.audio_enhancement(model=ai_coustics.EnhancerModel.QUAIL_VF_S),
             ),
         ),
+        room_input_options=RoomInputOptions(
+    noise_cancellation=noise_cancellation.BVC(),
+    video_enabled=True,
+    )
     )
     
     background_audio = BackgroundAudioPlayer(
@@ -58,7 +71,7 @@ async def my_agent(ctx: agents.JobContext):
     ],
 )
 
-await background_audio.start(room=ctx.room, agent_session=session)
+    await background_audio.start(room=ctx.room, agent_session=session)
 
     await session.generate_reply(
         instructions="Greet the user and offer your assistance."
